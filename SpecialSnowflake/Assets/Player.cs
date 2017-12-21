@@ -4,21 +4,65 @@ using UnityEngine;
 
 public class Player : MonoBehaviour {
     Vector2 touchOrigin;
+    float time;
+    float totalTime = 4;
+    bool direction;
+    bool dwarrel = true;
+
+    float dwarrelForce = 0.4f;
+    float flakeGravity = -0.6f;
 
 	// Use this for initialization
 	void Start () {
-        this.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -.4f);
+        this.GetComponent<Rigidbody2D>().velocity = new Vector2(0, flakeGravity);
 
+        time = totalTime / 2;
+        direction = true;
 	}
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        reset();
+    }
+
+    void reset()
+    {
+        this.transform.position = new Vector3(0, 21, 0);
+        this.GetComponent<Rigidbody2D>().velocity = new Vector2(0, flakeGravity);
+        time = totalTime / 2;
+        dwarrel = true;
+    }
 	
 	// Update is called once per frame
 	void Update () 
     {
+        if(dwarrel){
+            time += Time.deltaTime;
+            //schommel
+            if(time < totalTime){
+                if (direction)
+                {
+                    this.GetComponent<Rigidbody2D>().AddForce(new Vector2(dwarrelForce * Time.deltaTime * 100, 0));
+                }
+                else
+                {
+                    this.GetComponent<Rigidbody2D>().AddForce(new Vector2(-dwarrelForce * Time.deltaTime * 100, 0));
+                }
+            }
+            else
+            {
+                time = 0;
+                direction = !direction;
+            }
+        }
+        else if(Mathf.Abs(this.GetComponent<Rigidbody2D>().velocity.x) < .2f){
+            dwarrel = true;
+            direction = !direction;
+        }
+
+        //reached the end
         if (this.transform.position.y < 0)
         {
-            //reached the end
-            this.transform.position = new Vector3(0, 21, 0);
-            this.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -.4f);
+            reset();
         }
 
         float horizontal = 0;     //Used to store the horizontal move direction.
@@ -62,7 +106,9 @@ public class Player : MonoBehaviour {
                 //Calculate the difference between the beginning and end of the touch on the x axis.
                 float x = touchEnd.x - touchOrigin.x;
 
-                horizontal = (x / Screen.width * 70);
+                dwarrel = false;
+
+                horizontal = (x / Screen.width * 80);
             }
         }
             
