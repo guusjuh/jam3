@@ -43,7 +43,7 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 997
-  m_MinSize: {x: 950, y: 300}
+  m_MinSize: {x: 950, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &3
 MonoBehaviour:
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_MinSize: {x: 583, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 32
+  controlID: 44
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_MinSize: {x: 306, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 33
+  controlID: 45
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_MinSize: {x: 306, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 34
+  controlID: 46
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -329,10 +329,10 @@ MonoBehaviour:
   m_ZoomArea:
     m_HRangeLocked: 0
     m_VRangeLocked: 0
-    m_HBaseRangeMin: -540
-    m_HBaseRangeMax: 540
-    m_VBaseRangeMin: -960
-    m_VBaseRangeMax: 960
+    m_HBaseRangeMin: -459.2
+    m_HBaseRangeMax: 459.2
+    m_VBaseRangeMin: -287
+    m_VBaseRangeMax: 287
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -364,7 +364,7 @@ MonoBehaviour:
       width: 1292
       height: 574
     m_MinimalGUI: 1
-  m_defaultScale: 0.29895833
+  m_defaultScale: 1
   m_TargetTexture: {fileID: 0}
   m_CurrentColorSpace: 0
   m_LastWindowPixelSize: {x: 1292, y: 591}
@@ -401,7 +401,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ec58feff8e59feff9a5afeff425efeffe45efefff05ffeff129bfeffb49bfeffc09cfeff8aa1feff2ca2feff38a3feffd4aafeff76abfeff82acfefff4bbfeff96bcfeffa2bdfeff5ec6feff00c7feff0cc8fefff2f1feff94f2feffa0f3feff3c12ffffde12ffffea13ffffc017ffff6218ffff6e19ffffe039ffff823affff8e3bffff18fcffff0000000040380000
+    m_ExpandedIDs: 12fcffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -451,14 +451,14 @@ MonoBehaviour:
     width: 1292
     height: 591
   m_SceneLighting: 1
-  lastFramingTime: 765.0407968377608
+  lastFramingTime: 1881.5662867829283
   m_2DMode: 1
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 2.007621, y: 8.30831, z: 0}
+    m_Target: {x: 2.799976, y: 10.90711, z: 0}
     speed: 2
-    m_Value: {x: 2.007621, y: 8.30831, z: 0}
+    m_Value: {x: 2.799976, y: 10.90711, z: 0}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -485,9 +485,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 28.141382
+    m_Target: 23.692013
     speed: 2
-    m_Value: 28.141382
+    m_Value: 23.692013
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -596,13 +596,13 @@ MonoBehaviour:
   m_LastFolders:
   - Assets
   m_LastFoldersGridSize: 96
-  m_LastProjectPath: D:\jam3\SpecialSnowflake
+  m_LastProjectPath: D:\gamejam3\SpecialSnowflake
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 58260000
-    m_LastClickedID: 9816
-    m_ExpandedIDs: 0000000058260000ffffff7f
+    m_SelectedIDs: 6e260000
+    m_LastClickedID: 9838
+    m_ExpandedIDs: 000000006e260000ffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -630,7 +630,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000058260000
+    m_ExpandedIDs: 000000006e260000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
