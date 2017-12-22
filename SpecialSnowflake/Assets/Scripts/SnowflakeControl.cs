@@ -4,20 +4,15 @@ using System.Collections;
 
 public class SnowflakeControl : MonoBehaviour
 {
-    [SerializeField] private int seed = 0;
-    public string name = "";
+    private int seed = 0;
 
-    Color flakeColor = Color.white;
-    [SerializeField] SnowFlake snowFlake;
+    private Color flakeColor = Color.white;
+    private SnowFlake snowFlake;
+    public SnowFlake SnowFlake { get { return snowFlake; } }
 
-    public void Start()
+    public void Initialize(string name)
     {
-        InitFlakes();
-
-        //TODO: this is the 'player' object!
-        GameObject cube = GameObject.FindGameObjectWithTag("Player");  
-        Sprite sprite = Sprite.Create(snowFlake.texture, new Rect(0.0f,0.0f,snowFlake.texture.width,snowFlake.texture.height), new Vector2(0.5f, 0.5f)); 
-        cube.GetComponent<SpriteRenderer>().sprite = sprite;//snowFlake.texture;
+        InitFlakes(name);
     }
 
     private int CalculateSeed(string name)
@@ -31,7 +26,7 @@ public class SnowflakeControl : MonoBehaviour
         return seed;
     }
 
-    private void InitFlakes()
+    private void InitFlakes(string name)
     {
         seed = CalculateSeed(name);
         snowFlake = new SnowFlake(seed);

@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 9ed8d6e0567de5245bb8774ac8099b16
+timeCreated: 1513947957
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Christmas Time Personal Use
+  fontNames:
+  - Christmas Time Personal Use
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -12,40 +12,54 @@ public class Player : MonoBehaviour {
     float dwarrelForce = 0.4f;
     float flakeGravity = -0.6f;
 
+    Rigidbody2D rb2d;
+
+    bool won = false;
+
 	// Use this for initialization
-	void Start () {
-        this.GetComponent<Rigidbody2D>().velocity = new Vector2(0, flakeGravity);
+	public void Initialize()
+    {
+        rb2d = GetComponent<Rigidbody2D>();
+        rb2d.velocity = new Vector2(0, flakeGravity);
 
         time = totalTime / 2;
         direction = true;
 	}
+
     void OnTriggerEnter2D(Collider2D other)
     {
-        reset();
+        if(other.tag == "Obstacle") Reset();
     }
 
-    void reset()
+    void Reset()
     {
-        this.transform.position = new Vector3(0, 21, 0);
-        this.GetComponent<Rigidbody2D>().velocity = new Vector2(0, flakeGravity);
+        if (won) return;
+
+        transform.position = new Vector3(0, 21, 0);
+        rb2d.velocity = new Vector2(0, flakeGravity);
         time = totalTime / 2;
         dwarrel = true;
     }
 	
 	// Update is called once per frame
-	void Update () 
+	public void DoUpdate() 
     {
-        if(dwarrel){
+        if (won) return;
+
+        if(dwarrel)
+        {
             time += Time.deltaTime;
+
             //schommel
-            if(time < totalTime){
+            if(time < totalTime)
+            {
                 if (direction)
                 {
-                    this.GetComponent<Rigidbody2D>().AddForce(new Vector2(dwarrelForce * Time.deltaTime * 100, 0));
+                    rb2d.AddForce(new Vector2(dwarrelForce * Time.deltaTime * 100, 0));
                 }
                 else
                 {
-                    this.GetComponent<Rigidbody2D>().AddForce(new Vector2(-dwarrelForce * Time.deltaTime * 100, 0));
+                    rb2d.AddForce(new Vector2(-dwarrelForce * Time.deltaTime * 100, 0));
                 }
             }
             else
@@ -54,15 +68,19 @@ public class Player : MonoBehaviour {
                 direction = !direction;
             }
         }
-        else if(Mathf.Abs(this.GetComponent<Rigidbody2D>().velocity.x) < .2f){
+        else if(Mathf.Abs(rb2d.velocity.x) < .2f)
+        {
             dwarrel = true;
             direction = !direction;
         }
 
         //reached the end
-        if (this.transform.position.y < 0)
+        if (transform.position.y < 0)
         {
-            reset();
+            won = true;
+            rb2d.velocity = Vector2.zero;
+            transform.localScale = new Vector3(3.5f, 3.5f, 1.0f);
+            FindObjectOfType<GameManager>().Win();
         }
 
         float horizontal = 0;     //Used to store the horizontal move direction.
@@ -72,15 +90,7 @@ public class Player : MonoBehaviour {
             
         //Get input from the input manager, round it to an integer and store in horizontal to set x axis move direction
         horizontal = (int) (Input.GetAxisRaw ("Horizontal"));
-            
-        //Get input from the input manager, round it to an integer and store in vertical to set y axis move direction
-        vertical = (int) (Input.GetAxisRaw ("Vertical"));
-            
-        //Check if moving horizontally, if so set vertical to zero.
-        if(horizontal != 0)
-        {
-            vertical = 0;
-        }
+
         //Check if we are running on iOS, Android, Windows Phone 8 or Unity iPhone
         #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
             
@@ -118,9 +128,7 @@ public class Player : MonoBehaviour {
         {
             //Call AttemptMove passing in the generic parameter Wall, since that is what Player may interact with if they encounter one (by attacking it)
             //Pass in horizontal and vertical as parameters to specify the direction to move Player in.
-            this.GetComponent<Rigidbody2D>().AddForce(new Vector2(horizontal, 0));
-
+            rb2d.AddForce(new Vector2(horizontal, 0));
         }
-        
 	}
 }

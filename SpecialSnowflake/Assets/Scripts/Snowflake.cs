@@ -5,7 +5,7 @@ using UnityEngine;
 public class SnowFlake
 {
     private static System.Random rndGen;
-    private const int DEPTH = 8;
+    private const int DEPTH = 6;
 
     public int branchAngle = 30;
     public float branching = 0.33f;
