@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4531821910476828}
   - component: {fileID: 212609613000754568}
   - component: {fileID: 58209951959519330}
+  - component: {fileID: 114299999643333202}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Obstacle
@@ -53,9 +54,20 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.25}
+  m_Offset: {x: 0, y: -0.72}
   serializedVersion: 2
-  m_Radius: 2
+  m_Radius: 2.43
+--- !u!114 &114299999643333202
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1194997031811156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4961427b8a109c84499279eba68a5018, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212609613000754568
 SpriteRenderer:
   m_ObjectHideFlags: 1

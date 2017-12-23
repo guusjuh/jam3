@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
     GameObject ballPrefab;
     [SerializeField] List<Vector2> ballPositions = new List<Vector2>();
-    List<GameObject> ballGOs = new List<GameObject>();
+    List<ChristmasBall> ballGOs = new List<ChristmasBall>();
 
     GameObject lightPrefab;
     [SerializeField] List<Vector2> lightPositions = new List<Vector2>();
@@ -30,14 +31,15 @@ public class GameManager : MonoBehaviour {
     string enteredName;
 
     bool hintTextOn = false;
+    bool tutorialTextOn = false;
     float passedTime = 0.0f;
-    Color currentColor;
 
     public void Start()
     {
         background = Instantiate(Resources.Load<GameObject>("Prefabs/Background"));
         canvas = Instantiate(Resources.Load<GameObject>("Prefabs/Canvas"));
-        canvas.GetComponentInChildren<Button>().onClick.AddListener(NameEntered);
+        canvas.transform.Find("EnterNamePanel").GetComponentInChildren<Button>().onClick.AddListener(NameEntered);
+        canvas.transform.Find("RestartPanel").GetComponentInChildren<Button>().onClick.AddListener(Restart);
 
         camScript = Camera.main.GetComponent<CameraScript>();
         camScript.Initialize(background);
@@ -46,7 +48,13 @@ public class GameManager : MonoBehaviour {
         lightPrefab = Resources.Load<GameObject>("Prefabs/Light");
 
         if (ballPositions.Count > 0 && ballPrefab != null)
-            ballGOs = InstantiateMultipleOf(ballPrefab, ballPositions);
+        {
+            for (int i = 0; i < ballPositions.Count; i++)
+            {
+                ballGOs.Add(Instantiate(ballPrefab, ballPositions[i], Quaternion.identity).GetComponent<ChristmasBall>());
+                ballGOs[ballGOs.Count - 1].Initialize();
+            }
+        }
 
         if (lightPositions.Count > 0 && lightPrefab != null)
             lightGOs = InstantiateMultipleOf(lightPrefab, lightPositions);
@@ -66,9 +74,9 @@ public class GameManager : MonoBehaviour {
         }
 
         GameObject angelPrefab = Resources.Load<GameObject>("Prefabs/Angel");
-        angels[0] = Instantiate(angelPrefab, new Vector2(7.3f, 0.0f), Quaternion.identity).GetComponent<AngelScript>();
+        angels[0] = Instantiate(angelPrefab, new Vector2(7.1f, 0.0f), Quaternion.identity).GetComponent<AngelScript>();
         angels[0].transform.localScale = new Vector3(-0.6f, 0.6f, 1);
-        angels[1] = Instantiate(angelPrefab, new Vector2(-7.3f, 0.0f), Quaternion.identity).GetComponent<AngelScript>();
+        angels[1] = Instantiate(angelPrefab, new Vector2(-7.1f, 0.0f), Quaternion.identity).GetComponent<AngelScript>();
     }
 
     public void Update()
@@ -81,14 +89,28 @@ public class GameManager : MonoBehaviour {
         {
             angels[i].DoUpdate();
         }
+        for (int i = 0; i < ballGOs.Count; i++)
+        {
+            ballGOs[i].DoUpdate();
+        }
+
+        passedTime += Time.deltaTime;
 
         if (hintTextOn)
         {
-            passedTime += Time.deltaTime;
-            if(passedTime > 1.5f)
+            if(passedTime > 4.0f)
             {
-                currentColor.a -= 0.01f * Time.deltaTime;
-                canvas.transform.Find("InGamePanel").Find("Text").gameObject.GetComponent<Text>().color = currentColor;
+                canvas.transform.Find("InGamePanel").Find("Text").gameObject.SetActive(false);
+                hintTextOn = false;
+            }
+        }
+
+        if (tutorialTextOn)
+        {
+            if (passedTime > 4.0f)
+            {
+                canvas.transform.Find("InGamePanel").Find("Image").gameObject.SetActive(false);
+                tutorialTextOn = false;
             }
         }
     }
@@ -119,13 +141,19 @@ public class GameManager : MonoBehaviour {
                           new Rect(0.0f, 0.0f, snowflakeControl.SnowFlake.texture.width, snowflakeControl.SnowFlake.texture.height), 
                           new Vector2(0.5f, 0.5f)); 
         playerGO.GetComponent<SpriteRenderer>().sprite = snowflakeSprite;
+        playerGO.transform.Find("Particle").GetComponent<ParticleSystemRenderer>().material.mainTexture = snowflakeControl.SnowFlake.texture;
 
         canvas.transform.Find("EnterNamePanel").gameObject.SetActive(false);
         camScript.Initialize2();
 
         hintTextOn = true;
+        tutorialTextOn = true;
         canvas.transform.Find("InGamePanel").gameObject.SetActive(true);
-        currentColor = canvas.transform.Find("InGamePanel").gameObject.GetComponent<Image>().color;
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene("main");
     }
 
     public void Win()
@@ -138,5 +166,6 @@ public class GameManager : MonoBehaviour {
 
         canvas.transform.Find("WinPanel").gameObject.SetActive(true);
         canvas.transform.Find("WinPanel").Find("Text").GetComponent<Text>().text = enteredName;
+        canvas.transform.Find("RestartPanel").gameObject.SetActive(true);
     }
 }

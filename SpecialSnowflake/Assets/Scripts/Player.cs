@@ -128,7 +128,16 @@ public class Player : MonoBehaviour {
         {
             //Call AttemptMove passing in the generic parameter Wall, since that is what Player may interact with if they encounter one (by attacking it)
             //Pass in horizontal and vertical as parameters to specify the direction to move Player in.
+            if((rb2d.velocity.x > 0 && horizontal < 0) || (rb2d.velocity.x < 0 && horizontal > 0))
+            {
+                horizontal *= 2.0f;
+            } 
             rb2d.AddForce(new Vector2(horizontal, 0));
         }
+
+        if(Mathf.Abs(rb2d.velocity.x) > 1.8f)
+        {
+            rb2d.velocity = new Vector2(rb2d.velocity.x > 0 ? 1.8f : -1.8f, rb2d.velocity.y);  
+        } 
 	}
 }

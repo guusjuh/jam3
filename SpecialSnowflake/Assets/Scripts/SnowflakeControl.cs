@@ -28,7 +28,7 @@ public class SnowflakeControl : MonoBehaviour
 
     private void InitFlakes(string name)
     {
-        seed = CalculateSeed(name);
+        seed = CalculateSeed(name.ToLower());
         snowFlake = new SnowFlake(seed);
     }
 }
